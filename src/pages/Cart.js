@@ -4,11 +4,10 @@ import CartItem from "../components/CartItem";
 
 function Cart() {
     const [buttonText, setButtonText] = useState("Place Order");
-    const {cartItems, setCartItems, emptyCart} = useContext(Context);
+    const {cartItems, emptyCart} = useContext(Context);
     const cartItemElements = cartItems.map(item => (
         <CartItem key={item.id} item={item} />
     ));
-    const orderPressed = "Ordering..."
 
     function calculateTotal() {
         const total = cartItems.length * 5.99;
@@ -30,7 +29,7 @@ function Cart() {
             {cartItemElements}
             <p className="total-cost">Total: {calculateTotal()}</p>
             <div className="order-button">
-                <button onClick={handleClick}>{buttonText}</button>
+                {cartItems.length > 0 && <button onClick={handleClick}>{buttonText}</button>}
             </div>
         </main>
     )
